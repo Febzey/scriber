@@ -11,6 +11,7 @@ export default async function Page() {
             <div className="h-[40vh] w-full flex items-center justify-center flex-col">
                 <Image src={scriberlogo} alt="logo" className="w-14" />
                 <h1 className="text-white text-3xl font-bakbak">SCRIBER</h1>
+                <p className="text-xs text-neutral-500">(skrī-bər)</p>
                 <p className="text-sm text-neutral-400">Easily create and share blog posts.</p>
                 <div className="gap-3 flex flex-row items-center justify-center p-3 text-neutral-600">
                     <FaDiscord className="rounded-full p-2 bg-zinc-800 text-4xl"/>
@@ -22,6 +23,8 @@ export default async function Page() {
             </div>
 
             <BlogPreview />
+
+
         </div>
     )
 }

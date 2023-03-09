@@ -25,7 +25,7 @@ export default async function BlogPreviewContent() {
         <div className="flex flex-col gap-11 w-full">
             {
                 blogPosts.map((val, index) => (
-                    <BlogPostCardPreview blogData={val} />
+                    <BlogPostCardPreview blogData={val}/>
                 ))
             }
         </div>

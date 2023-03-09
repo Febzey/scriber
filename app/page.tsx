@@ -7,7 +7,6 @@ import scriberlogo from "../public/images/scriberlogo.png";
 export default async function Page() {
     return (
         <div className="flex flex-col gap-20 w-full h-auto min-h-screen items-center justify-center  pb-32">
-
             <div className="h-[40vh] w-full flex items-center justify-center flex-col">
                 <Image src={scriberlogo} alt="logo" className="w-14" />
                 <h1 className="text-white text-3xl font-bakbak">SCRIBER</h1>
@@ -21,10 +20,7 @@ export default async function Page() {
                     Create Post <FaPlus />
                 </Link>
             </div>
-
             <BlogPreview />
-
-
         </div>
     )
 }

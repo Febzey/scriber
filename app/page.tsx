@@ -16,7 +16,7 @@ export default async function Page() {
                     <FaDiscord className="rounded-full p-2 bg-zinc-800 text-4xl"/>
                     <FaTwitter className="rounded-full p-2 bg-zinc-800 text-4xl"/>
                 </div>
-                <Link href="/create" className="py-1 px-3 flex items-center gap-1 bg-slate-700 duration-150 hover:bg-slate-600 text-neutral-200 text-sm border-b-[4px] border-b-slate-600 mt-4">
+                <Link href="/create" className="py-1 px-3 rounded-sm flex items-center gap-1 bg-slate-600 border-b-[5px] border-b-slate-500 duration-150 hover:bg-slate-500 text-neutral-200 text-sm  mt-4">
                     Create Post <FaPlus />
                 </Link>
             </div>

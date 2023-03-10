@@ -2,20 +2,21 @@ import Link from "next/link"
 import scriberlogo from "../../public/images/scriberlogo.png"
 import Image from "next/image";
 import { FaSearch, FaPlus } from "react-icons/fa";
+import GoogleSignin from "./loginButton";
 
 export default function NavBar() {
     return (
         <nav className="w-full h-16 lg:px-72 flex items-center justify-between px-8 relative border-b-2 border-neutral-800">
             <ul className="flex flex-row gap-3 items-center justify-center text-neutral-400 z-10">
                 <Link href="/">
-                    <Image src={scriberlogo} alt="logo" className="object-fit w-11" />
+                    <Image src={scriberlogo} alt="logo" className="object-fit w-11 " />
                 </Link>
-                <Link href="/newpost" className="text-sm bg-neutral-800 border-b-[5px] border-b-neutral-700  py-1 px-2 rounded-sm flex flex-row gap-1 items-center justify-center">Create Post <FaPlus /></Link>
+                <Link href="/newpost" className=" shadow-zinc-700 text-sm bg-neutral-800 border-b-[5px] border-b-neutral-700  py-1 px-2 rounded-sm flex flex-row gap-1 items-center justify-center">Create Post <FaPlus /></Link>
 
             </ul>
 
             <ul className="text-sm z-10 flex items-center justify-center">
-                <Link href={"/signin"} className=" text-white px-3 py-1 bg-slate-600 border-b-[5px] border-b-slate-500 rounded-sm cursor-pointer duration-150 hover:bg-slate-500">Sign in</Link>
+                <GoogleSignin />
             </ul>
 
 

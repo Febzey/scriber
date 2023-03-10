@@ -7,9 +7,6 @@ export default function Providers({
 }: {
     children: React.ReactNode
 }) {
-
-    // const props = await getServerSideProps()
-    // console.log(Props)
     return (
         <>
             <SessionProvider>

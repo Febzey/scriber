@@ -2,43 +2,35 @@ import Link from "next/link"
 import scriberlogo from "../../public/images/scriberlogo.png"
 import Image from "next/image";
 import { FaSearch, FaPlus } from "react-icons/fa";
-import GoogleSignin from "./loginButton";
+import SignInButtons from "./loginButton";
+import { NavSearch } from "./search";
 
 export default function NavBar() {
     return (
-        <nav className="w-full h-16 lg:px-72 flex items-center justify-between px-8 relative border-b-2 border-neutral-800">
-            <ul className="flex flex-row gap-3 items-center justify-center text-neutral-400 z-10">
+        <nav className="w-full absolute right-0 left-0 h-[4.3rem]  flex items-center justify-evenly px-24 border-b-2 border-gray-700/20">
+            <ul className="flex flex-row gap-4 items-center justify-center text-neutral-400 z-10 text-sm">
                 <Link href="/">
-                    <Image src={scriberlogo} alt="logo" className="object-fit w-11 " />
+                    <Image src={scriberlogo} alt="logo" className="object-fit w-11 rounded-full border-gray-700/20 border-2" />
                 </Link>
-                <Link href="/newpost" className=" shadow-zinc-700 text-sm bg-neutral-800 border-b-[5px] border-b-neutral-700  py-1 px-2 rounded-sm flex flex-row gap-1 items-center justify-center">Create Post <FaPlus /></Link>
-
+                {/* <h1 className="font-bakbak text-2xl text-white">Scriber<span className="text-indigo-400">.blog</span></h1> */}
+                <Link href="/" className="flex flex-row items-center justify-center gap-1 text-white font-semibold">
+                    Home
+                </Link>
+                <Link href="/blog/post" className="flex flex-row items-center justify-center gap-1 text-white font-semibold">
+                    Create Blog <FaPlus />
+                </Link>
+                <Link href="/blog/post" className="flex flex-row items-center justify-center gap-1 text-white font-semibold">
+                    <FaSearch/>
+                </Link>
             </ul>
 
-            <ul className="text-sm z-10 flex items-center justify-center">
-                <GoogleSignin />
+
+            <ul className="text-sm z-10 flex items-center justify-center gap-4">
+                <SignInButtons />
             </ul>
 
-
-            <NavSearch />
+{/* 
+            <NavSearch /> */}
         </nav>
-    )
-}
-
-const NavSearch = () => {
-    return (
-        <div className="absolute text-center right-0 left-0 z-0">
-            <div className="flex items-center justify-center gap-2 h-8">
-                <input
-                    type="text"
-                    id="searchbar"
-                    placeholder="Search for a post or user."
-                    className="bg-neutral-700 px-3 py-1 text-sm text-center h-full placeholder-neutral-400 rounded text-neutral-100"
-                />
-                <Link href={"/search/paramshere"} className="px-4 py-2 h-full bg-slate-600 border-b-[5px] border-b-slate-500 rounded-sm text-neutral-100 duration-150 hover:bg-slate-500">
-                    <FaSearch />
-                </Link>
-            </div>
-        </div>
     )
 }

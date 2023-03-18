@@ -1,4 +1,3 @@
-import NavBar from "../components/nav/Nav";
 import "./../styles/globals.css"
 import Providers from "./providers";
 
@@ -12,12 +11,12 @@ export default function RootLayout({
 
     return (
         <html lang="en">
-            <body className="bg-neutral-900 font-inter">
+            <body className="font-inter bg-gray-900">
                 <Providers>
-                    <NavBar />
-                    <div className="lg:w-[80%] border-l-2 border-r-2 border-neutral-800 min-h-screen mx-auto">
-
-                        {children}
+                    <div className="w-full bg-cover bg-no-repeat">
+                        <div className="lg:w-[60%]  min-h-screen mx-auto">
+                            {children}
+                        </div>
                     </div>
                 </Providers>
             </body>

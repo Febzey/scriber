@@ -10,7 +10,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'lightning': 'url("/images/lightning.png")'
+        'lightning': 'url("/images/lightning.png")',
+        'sprinkle': 'url("/images/sprinkle.svg")'
       },
       fontFamily: {
         //   'bakbak': ['Bakbak One', 'cursive'],

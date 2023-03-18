@@ -4,7 +4,7 @@ export function BlogPostCardPreview({ blogData }: BlogPostCardPreviewParams) {
     return (
         <div className="w-full min-h-56 border-b-neutral-700 border-b-2 p-4 flex flex-col items-center justify-start gap-3 duration-150 hover:bg-zinc-800 cursor-pointer">
             <div className="flex w-full flex-row items-center justify-between">
-                <h1 className="text-3xl text-neutral-200 font-bakbak">{title.length > 60 ? title.substring(0, 60) + "..." : title}</h1>
+                <h1 className="text-4xl text-neutral-200 font-bakbak">{title.length > 60 ? title.substring(0, 60) + "..." : title}</h1>
             </div>
             
             <div className="text-neutral-300 leading-relaxed">

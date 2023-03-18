@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
       "target": "es5",
       "lib": [
         "dom",
@@ -29,7 +31,7 @@
       "**/*.ts",
       "**/*.tsx",
       ".next/types/**/*.ts"
-    ],
+, "utils/database/typeorm/entities/auth_entites.js"    ],
     "exclude": [
       "node_modules"
     ]

@@ -44,7 +44,6 @@ export default function BlogPostForm({ email }: { email: string | null | undefin
         if (!res.ok) return;
 
         const data = await res.json();
-
         //still need to check for error "success: false"
 
         data.url && setUrl(data.url);
@@ -134,7 +133,7 @@ const SavedPopup = ({ props }: SavedPopupProps) => {
                     <p className="text-white mb-4">Your rough draft has been saved successfully.</p>
                     <p className="text-white mb-6">You can continue editing your draft at a later time by visiting your profile page.</p>
                     <div className="flex justify-between items-center">
-                        <Link href="/profile" className="px-4 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-600 focus:outline-none" type="button">Go to Profile</Link>
+                        <Link href={`/u/}`} className="px-4 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-600 focus:outline-none" type="button">Go to Profile</Link>
                         <button className="px-4 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-600 focus:outline-none" type="button" onClick={()=>setSuccessPopUp(false)}>Continue Editing</button>
                     </div>
                 </div>

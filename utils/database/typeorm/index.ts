@@ -133,6 +133,21 @@ export async function getUserBlogPosts(identifier: string): Promise<BlogPostEnti
     }
 }
 
+export async function getUserBlogPostByUrl(url: string): Promise<BlogPostEntity|null> {
+    try {
+        const manager = await getManager({ dataSourceOptions: dbOptions });
+
+        const blogPostRepo = manager.getRepository(BlogPostEntity);
+        
+        const blogPost = await blogPostRepo.findOne({ where: { url: url }});
+        return blogPost;
+
+    } catch (err) {
+        console.log(err, " Error from 'getUserBlogPostByUrl'")
+        return null;
+    }
+}
+
 function isUUID(str: string): boolean {
     // This is a very basic check for UUID format, you may want to use a library like `uuid` for more comprehensive validation
     const uuidRegex = /^[a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}$/i;

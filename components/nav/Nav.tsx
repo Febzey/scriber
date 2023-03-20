@@ -3,16 +3,14 @@ import scriberlogo from "../../public/images/scriberlogo.png"
 import Image from "next/image";
 import { FaSearch, FaPlus } from "react-icons/fa";
 import SignInButtons from "./loginButton";
-import { NavSearch } from "./search";
 
 export default function NavBar() {
     return (
-        <nav className="w-full absolute right-0 left-0 h-[4.3rem]  flex items-center justify-evenly px-24 border-b-2 border-gray-700/20">
+        <nav className="w-full absolute right-0 left-0 h-[4.3rem] top-0  flex items-center justify-evenly px-24 border-b-2 border-gray-700/20">
             <ul className="flex flex-row gap-4 items-center justify-center text-neutral-400 z-10 text-sm">
                 <Link href="/">
                     <Image src={scriberlogo} alt="logo" className="object-fit w-11 rounded-full border-gray-700/20 border-2" />
                 </Link>
-                {/* <h1 className="font-bakbak text-2xl text-white">Scriber<span className="text-indigo-400">.blog</span></h1> */}
                 <Link href="/" className="flex flex-row items-center justify-center gap-1 text-white font-semibold">
                     Home
                 </Link>
@@ -28,9 +26,6 @@ export default function NavBar() {
             <ul className="text-sm z-10 flex items-center justify-center gap-4">
                 <SignInButtons />
             </ul>
-
-{/* 
-            <NavSearch /> */}
         </nav>
     )
 }

@@ -1,4 +1,5 @@
-export default async function MainBlogPage() {
+
+export default function MainBlogPage() {
     return (
         <>
          <h1>Bloggg</h1>

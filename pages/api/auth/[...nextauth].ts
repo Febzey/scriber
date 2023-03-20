@@ -4,8 +4,8 @@ import EmailProvider from "next-auth/providers/email";
 import { TypeORMLegacyAdapter } from "@next-auth/typeorm-legacy-adapter"
 import { dbOptions } from "../../../utils/database/typeorm";
 
-const options: NextAuthOptions = {
-    adapter: TypeORMLegacyAdapter(dbOptions),
+export const options: NextAuthOptions = {
+    adapter: TypeORMLegacyAdapter({...dbOptions, synchronize: true}),
 
     providers: [
         GoogleProvider({
@@ -29,24 +29,6 @@ const options: NextAuthOptions = {
         verifyRequest: "/auth/signin/verify",
         signOut: "/auth/signout",
     },
-
-    callbacks: {
-        async signIn({ user, account, profile, email, credentials }) {
-            user.id 
-
-            console.log(user, " user after signing in.");
-            return true;
-            // if (user.name) {
-            //     return true;
-            // } else {
-            //     return false
-
-            //    // const adapterManager = await getManager();
-
-            // }
-
-        },
-     }
 
     // other NextAuth.js options
 }

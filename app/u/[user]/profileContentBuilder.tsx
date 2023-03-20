@@ -3,6 +3,8 @@ import type { BlogPostEntity } from "../../../utils/database/typeorm/entities/bl
 import Image from "next/image";
 import fourofour from "../../../public/images/errors/404-error.png";
 import ProfileContent from "./profileContent";
+import { headers } from "next/headers";
+import { getSession } from "../../layout";
 
 /**
  * Getting user profile info.
@@ -42,22 +44,31 @@ async function getPosts(userOrId: string): Promise<{ success: boolean, posts: Bl
 
 
 export default async function UserProfilePageBuilder({ username }: { username: string }) {
-    console.log(username, " username");
-    const userObj = await getUser(username);
-
+    const sessionPromise = getSession(headers().get('cookie') ?? '');
+    const userPromise = getUser(username);
+    const postsPromise = getPosts(username);
+  
+    const [session, userObj, posts] = await Promise.all([
+      sessionPromise,
+      userPromise,
+      postsPromise,
+    ]);
+  
     if (!userObj || userObj.success === false) {
-        return (
-            <div className="w-full h-screen flex items-center justify-center">
-                <Image src={fourofour} alt="fourofour" />
-            </div>
-        )
+      return (
+        <div className="w-full h-screen flex items-center justify-center">
+          <Image src={fourofour} alt="fourofour" />
+        </div>
+      );
     }
-
-    const posts = await getPosts(userObj.user.id);
-
-    await new Promise(r => setTimeout(r, 5000))
-
+  
     return (
-        <ProfileContent params={{ user: userObj.user, posts: posts && posts.posts }} />
-    )
-}
+      <ProfileContent
+        params={{
+          user: userObj.user,
+          posts: posts && posts.posts,
+          userOwnsProfile: session?.user?.name === userObj.user.name ? true : false,
+        }}
+      />
+    );
+  }

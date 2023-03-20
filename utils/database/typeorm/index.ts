@@ -1,7 +1,8 @@
-import { DataSourceOptions, DataSource } from "typeorm";
+import { DataSourceOptions, DataSource, EntityManager } from "typeorm";
 import { AccountEntity, SessionEntity, UserEntity, VerificationTokenEntity } from "./entities/userEntities";
 import { BlogPostEntity } from "./entities/blogEntities";
 
+const entities = [AccountEntity, SessionEntity, UserEntity, VerificationTokenEntity, BlogPostEntity];
 export const dbOptions: DataSourceOptions = {
     type: "mariadb",
     host: process.env.db_host,
@@ -9,14 +10,35 @@ export const dbOptions: DataSourceOptions = {
     username: process.env.db_user,
     password: process.env.db_password,
     database: process.env.db_database,
-    synchronize: true,
     logging: false,
-    entities: [AccountEntity, SessionEntity, UserEntity, VerificationTokenEntity, BlogPostEntity]
+    entities: entities,
 }
 
-export const appDataSource = new DataSource(dbOptions);
+let _dataSource: DataSource | undefined;
+
+export async function getManager(options: {
+    dataSourceOptions: DataSourceOptions
+}): Promise<EntityManager> {
+
+    const { dataSourceOptions } = options;
+
+    if (!_dataSource) _dataSource = new DataSource(dataSourceOptions);
+
+    const manager = _dataSource?.manager;
+
+    if (!manager.connection.isInitialized) {
+        await manager.connection.initialize();
+    }
+    // if (process.env.NODE_ENV !== "production") {
+
+    // }
+    return manager;
+}
+
 
 export async function createBlogPost(blogPost: BlogPost): Promise<boolean | string> {
+
+    const manager = await getManager({ dataSourceOptions: dbOptions });
 
     const {
         title,
@@ -27,11 +49,9 @@ export async function createBlogPost(blogPost: BlogPost): Promise<boolean | stri
         userEmail
     } = blogPost as BlogPost;
 
-    const conn = await appDataSource.initialize()
-
     try {
-        const blogPostTable = conn.getRepository(BlogPostEntity);
-        const userTable = conn.getRepository(UserEntity);
+        const blogPostTable = manager.getRepository(BlogPostEntity);
+        const userTable = manager.getRepository(UserEntity);
         const author = await userTable.findOne({ where: { email: userEmail } })
 
         if (!author) {
@@ -57,8 +77,6 @@ export async function createBlogPost(blogPost: BlogPost): Promise<boolean | stri
     } catch (err) {
         console.error(err, " Error while saving blog post.")
         return false;
-    } finally {
-        conn.destroy();
     }
 
 }
@@ -72,30 +90,29 @@ function generatePostUrlFromTitle(title: string) {
 }
 
 
-
-export async function getUserByEDmailOrUsername(emailOrUsername: string): Promise<UserEntity | null> {
-    const conn = await appDataSource.initialize()
+export async function getUserByEmailOrUsername(emailOrUsername: string): Promise<UserEntity | null> {
     try {
+        const manager = await getManager({ dataSourceOptions: dbOptions });
 
-        const user = await conn.getRepository(UserEntity)
+        const user = await manager.getRepository(UserEntity)
             .createQueryBuilder("user")
             .where("user.email = :emailOrUsername OR user.name = :emailOrUsername", { emailOrUsername })
             .getOne()
 
         return user;
     } catch (err) {
-        return null;
-    } finally {
-        conn.destroy();
+        console.log(err, "error in get user by email or username")
+        return null
     }
 }
 
 export async function getUserBlogPosts(identifier: string): Promise<BlogPostEntity[] | null> {
-    const conn = await appDataSource.initialize();
-
     try {
-        const blogPostRepo = conn.getRepository(BlogPostEntity);
-        const userRepo = conn.getRepository(UserEntity);
+        const manager = await getManager({ dataSourceOptions: dbOptions });
+
+
+        const blogPostRepo = manager.getRepository(BlogPostEntity);
+        const userRepo = manager.getRepository(UserEntity);
 
         let user: UserEntity | null;
         if (isUUID(identifier)) {
@@ -111,9 +128,8 @@ export async function getUserBlogPosts(identifier: string): Promise<BlogPostEnti
         const blogPosts = await blogPostRepo.find({ where: { authorId: user.id } });
         return blogPosts;
     } catch (err) {
+        console.log(err, " error in getUserBlogPost")
         return null;
-    } finally {
-        conn.destroy();
     }
 }
 

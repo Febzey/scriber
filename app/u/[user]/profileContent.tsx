@@ -1,10 +1,6 @@
-"use client";
-
 import type { UserEntity } from "../../../utils/database/typeorm/entities/userEntities";
 import type { BlogPostEntity } from "../../../utils/database/typeorm/entities/blogEntities";
 
-import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaEdit, FaTimes } from "react-icons/fa";
@@ -13,26 +9,15 @@ import React from "react";
 interface ProfileContentParams {
     params: {
         user: UserEntity
-        posts: BlogPostEntity[] | void
+        posts: BlogPostEntity[] | void,
+        userOwnsProfile: boolean
     }
 }
 export default function ProfileContent({ params }: ProfileContentParams) {
-    const { data: session } = useSession();
-
-    const [userOwnsProfile, setUserOwnsProfile] = useState(false);
-
-    const { user, posts } = params;
+    const { user, posts, userOwnsProfile } = params;
 
     const publishedPosts = posts && posts.filter(posts => posts.isPublished === true);
     const roughDrafts = posts && posts.filter(posts => posts.isRoughDraft === true);
-    console.log(publishedPosts, " published")
-
-    useEffect(() => {
-        if (session?.user?.name === user.name) {
-            setUserOwnsProfile(true);
-        }
-    }, [session]);
-
 
     return (
         <div className="w-full min-h-screen h-auto mb-52">

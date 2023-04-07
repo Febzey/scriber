@@ -37,7 +37,7 @@ export default function LoginForm({ providers }: any) {
     }
 
     return (
-        <>
+        <div className="w-full h-full  flex items-center justify-center flex-col">
             {
                 isLoading
                 ? <Image src={squareload} alt="square loader" className="mx-auto"/>
@@ -46,9 +46,11 @@ export default function LoginForm({ providers }: any) {
                         handleSubmit("email", {
                             email: email,
                         })
-                    }} className="w-full flex flex-col items-center justify-center gap-2">
+                    }} className="flex flex-col items-center justify-center gap-2 w-3/4">
+
+                        
                         <input
-                            className={`p-2 w-3/4 bg-zinc-700 rounded text-neutral-100 focus:bg-zinc-600 ${invalidEmail ? "border-red-500 border-2" : ""}`}
+                            className={`p-2 w-full bg-card rounded text-neutral-100 focus:bg-zinc-600 ${invalidEmail ? "border-red-500 border-2" : ""}`}
                             id="email"
                             placeholder="Email"
                             type="text"
@@ -60,13 +62,13 @@ export default function LoginForm({ providers }: any) {
                             autoSave="off"
 
                         />
-                        <button type="submit" className="w-3/4 bg-emerald-500 bg-opacity-70 rounded p-2 text-neutral-200 flex flex-row gap-2 items-center justify-center">
+                        <button type="submit" className="w-full bg-indigo-main rounded p-2 text-neutral-200 flex flex-row gap-2 items-center justify-center">
                             Login <FaSignInAlt />
                         </button>
                     </form>
             }
 
-            <div className="text-neutral-500 flex flex-col items-center justify-center">
+            <div className="text-[#8B8C99] flex flex-col items-center justify-center mt-20 border-t-2 border-t-[#626385]/60 w-3/4 py-10">
                 <p className="mb-8">Other sign-in options.</p>
 
                 <button onClick={() => handleSubmit(providers.google.id, {
@@ -76,6 +78,6 @@ export default function LoginForm({ providers }: any) {
                 </button>
             </div>
 
-        </>
+        </div>
     )
 }

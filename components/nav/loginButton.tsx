@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react"
 import { usePathname } from "next/navigation";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 import Link from "next/link";
 export default function SignInButtons() {
     const pathname = usePathname();
@@ -23,7 +23,7 @@ export default function SignInButtons() {
                     />
                 </Link>
 
-                <button onClick={() => signOut()} className="duration-150 hover:text-neutral-300 flex flex-row items-center justify-center gap-1 text-neutral-400">
+                <button onClick={() => signOut()} className="duration-150 hover:text-neutral-300 flex flex-row items-center justify-center gap-1 text-[#C4BDCB]">
                     <FaSignOutAlt /> Sign out
                 </button>
             </div>
@@ -32,10 +32,11 @@ export default function SignInButtons() {
 
     return (
         <>
-            <button onClick={() => signIn(undefined, { callbackUrl: pathname ? pathname : "/", redirect: false })} className="bg-gradient-to-r p-0.5 flex from-indigo-400 via-indigo-300/60 to-indigo-500 rounded">
-                <span className="w-full h-full px-2 py-1 text-white font-semibold">
+            <button onClick={() => signIn(undefined, { callbackUrl: pathname ? pathname : "/", redirect: false })} className="text-white bg-gradient-to-r p-0.5 flex flex-row gap-1 items-center justify-center">
+                <span className="w-full h-full font-semibold">
                     Sign In
                 </span>
+                <FaSignInAlt className="text-2xl"/>
             </button>
         </>
     )

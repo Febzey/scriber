@@ -1,7 +1,6 @@
 import UserPostBuilder from "./postBuilder";
 import { Suspense } from "react";
-
-
+import BlogPostLoadingSkeleton from "./components/blogPostLoadingSkeleton";
 
 interface UserBlogPostPageParams {
     params: {
@@ -12,13 +11,11 @@ interface UserBlogPostPageParams {
 export default async function UserBlogPostPage({ params }: UserBlogPostPageParams) {
     const { user, blogurl } = params;
 
-
     return (
-        <Suspense fallback={<h1>Loading blog....</h1>}>
-
-        {/*@ts-expect-error */}
-        <UserPostBuilder user={user} blogurl={blogurl} />
-    </Suspense>
+        <Suspense fallback={<BlogPostLoadingSkeleton />}>
+            {/*@ts-expect-error */}
+            <UserPostBuilder user={user} blogurl={blogurl} />
+        </Suspense>
     )
 
 }

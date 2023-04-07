@@ -15,15 +15,17 @@ const preMadeTags: Tag[] = [
   ];
 
 interface BlogTagProps {
-    tags: Tag[],
-    setTags: React.Dispatch<SetStateAction<Tag[]>>
+    tags: Tag[]|null,
+    setTags: React.Dispatch<SetStateAction<Tag[]|null>>
 }
 export default function BlogTags({ props }: { props: BlogTagProps }) {
+    
     const { tags, setTags } = props;
 
     const [newTag, setNewTag] = useState("");
 
     const addNewTag = () => {
+        if (!tags) return;
         if (!newTag || tags.length > 12) return;
 
         let tag = { color: null, text: newTag } as Tag;
@@ -37,16 +39,16 @@ export default function BlogTags({ props }: { props: BlogTagProps }) {
         if (tags.length === 0) {
             setTags([tag]);
         } else {
-            setTags((prevTags) => [...prevTags, tag]);
+            setTags((prevTags) => [...prevTags as Tag[], tag]);
         }
     }
 
     const deleteTag = (index: number) => {
-        setTags(prevTags => prevTags.filter((tag,i) => i !== index))
+        setTags(prevTags => prevTags && prevTags.filter((tag,i) => i !== index))
     }
 
     return (
-        <div className="w-full max-w-full flex flex-row flex-wrap gap-4 items-center justify-start border-gray-700/50 border-2 p-4 rounded-lg h-auto min-h-[5rem]">
+        <div className="w-full max-w-full flex flex-row flex-wrap gap-4 items-center justify-start border-card/30 border-2 p-4 rounded-lg h-auto min-h-[5rem]">
 
             <div className="flex bg-gray-700/50 p-2 lg:w-24 rounded flex-row items-center justify-center gap-2">
                 <input
@@ -63,7 +65,7 @@ export default function BlogTags({ props }: { props: BlogTagProps }) {
             </div>
 
             {
-                tags.length > 0
+                tags && tags.length > 0
                     ?
                     tags.map((tag, index) => (
                         <BlogTag tag={tag} index={index} deleteTag={deleteTag} />

@@ -10,7 +10,7 @@ export default function SignOutPage() {
             <Link href="/" className="z-40">
                 <FaArrowLeft className="absolute left-16 top-16 text-6xl text-neutral-400 duration-150 hover:text-neutral-100" />
             </Link>
-            <div className="lg:w-3/6 lg:h-[60vh] w-full border-dashed rounded border-gray-700/20 lg:border-2 p-11 gap-10 flex flex-col">
+            <div className="lg:w-5/12 lg:h-[60vh] w-full border-dashed rounded border-gray-700/20 lg:border-2 p-11 gap-10 flex flex-col">
                 <div className="flex flex-col items-center justify-center text-center">
                     <h1 className="mx-auto bg-clip-text text-transparent bg-gradient-to-r from-red-200 to-red-600 font-bakbak text-5xl">Sign Out</h1>
                     <p className="text-neutral-200 text-lg mt-5">Are you sure you want to sign out?</p>
